@@ -30,18 +30,16 @@ Live on https://hugobarthelmess.de since 26 September 2026.
 `deploy/` holds Dockerfile, nginx config (with CSP and security headers) and a compose file that
 joins the `web-stack_default` network on the OTC server, like the other projects. The web-stack
 nginx terminates TLS for `hugobarthelmess.de` (template `hugobarthelmess.conf.template`) and
-proxies to the `linktree` container. On the server: `~/linktree/src` (copied tree),
+proxies to the `linktree` container. On the server: `~/linktree/repo` (clone), `~/linktree/deploy.sh`,
 `~/linktree/.deployed` (live commit).
 
-Update the live site from the Mac after committing:
+Every green push to `main` deploys via `.github/workflows/ci.yml`: the job logs in over SSH with a
+key that is restricted to `~/linktree/deploy.sh` (source: `deploy/server-deploy.sh`). That script
+fetches the commit into `~/linktree/repo` (read-only deploy key), rebuilds the image and swaps the
+container. The deploy job only runs while the repository variable `DEPLOY_ENABLED` is `true`.
 
-```bash
-deploy/push-to-server.sh
-```
-
-The CI deploy job stays skipped until the repository variable `DEPLOY_ENABLED` is `true`; it needs
-a server-side `~/linktree/deploy.sh`, a restricted key in `authorized_keys` and the secrets
-`DEPLOY_SSH_KEY` / `DEPLOY_KNOWN_HOSTS` (same scheme as Satellite-Tracker).
+One-time setup of keys, secrets and that variable: run `deploy/setup-ci.sh` on the Mac.
+By hand on the server: `~/linktree/deploy.sh main`.
 
 Until September 2026 the apex domain served Padel Score (now `counter.hugobarthelmess.de`).
 `public/sw.js` replaces its old service worker so returning visitors are not stuck on a cached copy,

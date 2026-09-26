@@ -161,6 +161,18 @@ html[data-lang='de'] [data-l='en'] {
   mix-blend-mode: overlay;
 }
 
+/* iOS Safari 26+ fills the area under its translucent status bar and toolbar with the page
+   background, not with this fixed layer (theme-color is ignored). Fading the edges into that
+   colour hides the hard seam. */
+@supports (-webkit-touch-callout: none) {
+  .backdrop::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--bg), transparent 88px, transparent calc(100% - 112px), var(--bg));
+  }
+}
+
 /* ---------- Language switch (segmented control) ---------- */
 .lang-switch {
   position: absolute;

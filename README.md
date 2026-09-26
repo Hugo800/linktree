@@ -21,7 +21,7 @@ npm run preview  # built site with the production Content-Security-Policy
 - Photo: put a square `public/avatar.jpg` (at least 336 × 336 px). Without it the "HB" monogram shows.
 - `public/og.png` (1200 × 630) is the link preview image. Regenerate it after visible changes, e.g.
   with headless Chrome against `npm run dev`:
-  `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-dark-mode --window-size=1200,630 --virtual-time-budget=10000 --screenshot=public/og.png "http://localhost:5173/?lang=en"`
+  `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-dark-mode --force-prefers-reduced-motion --window-size=1200,630 --virtual-time-budget=6000 --screenshot=public/og.png "http://localhost:5173/?lang=en"`
 
 ## Deployment
 

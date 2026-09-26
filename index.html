@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Hugo Barthelmess</title>
+    <meta name="description" content="Hugo Barthelmess – projects, GitHub, LinkedIn and contact." />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href="https://hugobarthelmess.de/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hugobarthelmess.de/" />
+    <meta property="og:title" content="Hugo Barthelmess" />
+    <meta property="og:description" content="Projects, GitHub, LinkedIn and contact." />
+    <meta property="og:image" content="https://hugobarthelmess.de/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Sets data-lang before first paint, so the page never flashes the wrong language. -->
+    <script src="/boot.js"></script>
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true">
+      <div class="aurora aurora-a"></div>
+      <div class="aurora aurora-b"></div>
+      <div class="aurora aurora-c"></div>
+      <div class="grain"></div>
+    </div>
+
+    <div class="lang-switch" role="group" aria-label="Language">
+      <span class="lang-thumb" aria-hidden="true"></span>
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="de" aria-pressed="false">DE</button>
+    </div>
+
+    <main class="page">
+      <header class="hero reveal">
+        <div class="avatar">
+          <span class="avatar-ring" aria-hidden="true"></span>
+          <span class="avatar-fallback" aria-hidden="true">HB</span>
+          <img class="avatar-img" src="/avatar.jpg" width="112" height="112" alt="Hugo Barthelmess" decoding="async" />
+        </div>
+        <h1 class="name">Hugo Barthelmess</h1>
+        <p class="place">
+          <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+          <span data-l="en">Germany</span><span data-l="de">Deutschland</span>
+        </p>
+      </header>
+
+      <section class="bento" aria-label="Links">
+        <a class="tile tile-atlas reveal" href="https://tracker.hugobarthelmess.de" data-accent="blue">
+          <canvas class="tile-canvas" data-anim="globe" aria-hidden="true"></canvas>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="tile-body">
+            <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-l="en">Project · Live</span><span data-l="de">Projekt · Live</span></span>
+            <h2 class="tile-title">Orbital Atlas</h2>
+            <p class="tile-text">
+              <span data-l="en">Real-time 3D satellite tracker and star atlas. Right in the browser.</span>
+              <span data-l="de">Satelliten in Echtzeit und Sternenatlas in 3D. Direkt im Browser.</span>
+            </p>
+            <span class="chip">tracker.hugobarthelmess.de</span>
+          </div>
+        </a>
+
+        <a class="tile tile-padel reveal" href="https://counter.hugobarthelmess.de" data-accent="green">
+          <svg class="court" viewBox="0 0 200 100" aria-hidden="true">
+            <rect x="1" y="1" width="198" height="98" rx="1" />
+            <line x1="30.5" y1="1" x2="30.5" y2="99" />
+            <line x1="169.5" y1="1" x2="169.5" y2="99" />
+            <line x1="30.5" y1="50" x2="169.5" y2="50" />
+            <line x1="100" y1="-4" x2="100" y2="104" class="net" />
+            <circle class="ball" cx="40" cy="70" r="2.2" />
+          </svg>
+          <div class="scoreboard" aria-hidden="true">
+            <div class="sb-row" data-team="0">
+              <span class="sb-serve"></span>
+              <span class="sb-team">Team A</span>
+              <span class="sb-sets"><b>6</b><b class="sb-games">0</b></span>
+              <span class="sb-points"><span class="roll">0</span></span>
+            </div>
+            <div class="sb-row" data-team="1">
+              <span class="sb-serve"></span>
+              <span class="sb-team">Team B</span>
+              <span class="sb-sets"><b>4</b><b class="sb-games">0</b></span>
+              <span class="sb-points"><span class="roll">0</span></span>
+            </div>
+          </div>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="tile-body">
+            <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-l="en">Project · Live</span><span data-l="de">Projekt · Live</span></span>
+            <h2 class="tile-title">Padel Score</h2>
+            <p class="tile-text">
+              <span data-l="en">Keep score in tennis and padel, synced live across devices.</span>
+              <span data-l="de">Punkte zählen bei Tennis und Padel, live auf allen Geräten.</span>
+            </p>
+            <span class="chip">counter.hugobarthelmess.de</span>
+          </div>
+        </a>
+
+        <a class="tile tile-small tile-github reveal" href="https://github.com/Hugo800" data-accent="violet">
+          <canvas class="tile-canvas" data-anim="contrib" aria-hidden="true"></canvas>
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="tile-body">
+            <h2 class="tile-title"><svg class="brand-inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>GitHub</h2>
+            <p class="tile-text">@Hugo800</p>
+          </div>
+        </a>
+
+        <a class="tile tile-small tile-linkedin reveal" href="https://www.linkedin.com/in/hugo-oliver-b-327987191/" data-accent="sky">
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="tile-body">
+            <svg class="brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+            <h2 class="tile-title">LinkedIn</h2>
+            <p class="tile-text"><span data-l="en">Let’s connect</span><span data-l="de">Vernetzen</span></p>
+          </div>
+        </a>
+
+        <div class="tile tile-mail reveal" data-accent="pink">
+          <div class="tile-body">
+            <svg class="brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1Zm.8 1.8v.17L12 13l8.2-5.53V7.3H3.8Zm16.4 2.35-7.64 5.16a1 1 0 0 1-1.12 0L3.8 9.65v7.05h16.4V9.65Z"/></svg>
+            <h2 class="tile-title"><span data-l="en">Contact</span><span data-l="de">Kontakt</span></h2>
+            <p class="tile-text mail-address">kontakt@hugobarthelmess.de</p>
+          </div>
+          <div class="mail-actions">
+            <a class="pill pill-primary" href="mailto:kontakt@hugobarthelmess.de">
+              <span data-l="en">Write</span><span data-l="de">Schreiben</span>
+            </a>
+            <button class="pill" type="button" data-copy="kontakt@hugobarthelmess.de">
+              <span class="copy-idle"><span data-l="en">Copy</span><span data-l="de">Kopieren</span></span>
+              <span class="copy-done"><span data-l="en">Copied</span><span data-l="de">Kopiert</span></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot reveal">
+        <span>© <span class="year">2026</span> Hugo Barthelmess</span>
+      </footer>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

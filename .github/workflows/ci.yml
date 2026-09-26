@@ -1,0 +1,60 @@
+name: CI/CD
+
+# Every push and pull request is type-checked and built.
+# Deployment to https://hugobarthelmess.de (OTC server, same scheme as the other projects)
+# only runs once the repository variable DEPLOY_ENABLED is set to "true" and the secrets
+# DEPLOY_SSH_KEY / DEPLOY_KNOWN_HOSTS exist. The key on the server is restricted to
+# ~/linktree/deploy.sh, which pulls the commit, rebuilds the image and swaps the container.
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md']
+  pull_request:
+    paths-ignore: ['**.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck and build
+        run: npm run build
+
+  deploy:
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    environment:
+      name: production
+      url: https://hugobarthelmess.de
+    steps:
+      - name: Deploy to the OTC server
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=20 ubuntu@164.30.69.35 "$GITHUB_SHA"
+
+      - name: Site reachable
+        run: curl -fsS -o /dev/null --retry 5 --retry-delay 3 --retry-all-errors https://hugobarthelmess.de/

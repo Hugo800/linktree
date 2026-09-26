@@ -1,0 +1,15 @@
+# Linktree unter https://hugobarthelmess.de. Davor sitzt der nginx vom web-stack
+# (/opt/web-stack auf dem OTC-Server), der TLS beendet und hierher weiterreicht.
+name: linktree
+services:
+  linktree:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: linktree
+    restart: unless-stopped
+    networks: [web]
+networks:
+  web:
+    external: true
+    name: web-stack_default

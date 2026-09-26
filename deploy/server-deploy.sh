@@ -31,7 +31,11 @@ fi
 
 git -C repo merge -q --ff-only "$sha"
 compose=(docker compose -f repo/deploy/compose.yml)
-"${compose[@]}" up -d --build --quiet-pull 2>&1 | grep -v '^#' || true
+# `|| true` only for grep (exits 1 when it filters every line); a failed build must stop here,
+# before .deployed records the new commit.
+if ! "${compose[@]}" up -d --build --quiet-pull 2>&1 | { grep -v '^#' || true; }; then
+  echo "docker compose up fehlgeschlagen – .deployed bleibt ${live:-leer}" >&2; exit 5
+fi
 "${compose[@]}" ps --status running -q linktree | grep -q . \
   || { echo "Container läuft nicht" >&2; exit 4; }
 echo "$sha" > .deployed

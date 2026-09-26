@@ -21,7 +21,7 @@ gh repo deploy-key list --repo "$REPO" | grep -q "otc-server" \
 
 echo "2/4 Clone and deploy script on the server, first deployment"
 ssh otc 'set -e
-  cd ~/linktree
+  mkdir -p ~/linktree && cd ~/linktree
   test -d repo || git clone -q github-linktree:Hugo800/linktree.git repo
   install -m 755 repo/deploy/server-deploy.sh deploy.sh
   rm -f .deployed

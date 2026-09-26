@@ -6,6 +6,7 @@ services:
     build:
       context: ..
       dockerfile: deploy/Dockerfile
+      pull: true   # fresh base images (security fixes) on every deploy
     container_name: linktree
     restart: unless-stopped
     networks: [web]

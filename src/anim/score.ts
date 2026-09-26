@@ -50,7 +50,7 @@ export function score(board: HTMLElement): Animation {
       gms[w]++;
       pts[0] = pts[1] = 0;
       server = 1 - server;
-      if (gms[w] >= 6 && gms[w] - gms[l] >= 2) gms[0] = gms[1] = 0;
+      if (gms[w] >= 6 && (gms[w] - gms[l] >= 2 || gms[w] === 7)) gms[0] = gms[1] = 0; // at 6-6 the next game decides (stands in for the tie-break)
     } else if (pts[0] >= 4 && pts[1] >= 4 && pts[0] === pts[1]) {
       pts[0] = pts[1] = 3; // back to deuce
     }
@@ -61,7 +61,8 @@ export function score(board: HTMLElement): Animation {
   return {
     el: board,
     resize() {},
-    frame(t) {
+    frame(t, dt) {
+      if (!dt) return; // still frames (reduced motion, repaints) keep the score
       if (!next) next = t + RALLY;
       if (t >= next) {
         next = t + RALLY * (0.8 + Math.random() * 0.5);

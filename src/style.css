@@ -5,7 +5,9 @@
   --bg: #000;
   --fg: #f5f5f7;
   --fg-2: rgba(245, 245, 247, 0.62);
-  --fg-3: rgba(245, 245, 247, 0.4);
+  /* Plain rgba, not color-mix(): the name and the primary pill must not vanish in older browsers. */
+  --fg-fade: rgba(245, 245, 247, 0.55);
+  --fg-hover: rgba(245, 245, 247, 0.85);
   --card: rgba(28, 28, 30, 0.55);
   --card-hi: rgba(255, 255, 255, 0.07);
   --stroke: rgba(255, 255, 255, 0.09);
@@ -30,8 +32,9 @@
   :root {
     --bg: #f5f5f7;
     --fg: #1d1d1f;
-    --fg-2: rgba(29, 29, 31, 0.62);
-    --fg-3: rgba(29, 29, 31, 0.42);
+    --fg-2: rgba(29, 29, 31, 0.72);
+    --fg-fade: rgba(29, 29, 31, 0.55);
+    --fg-hover: rgba(29, 29, 31, 0.85);
     --card: rgba(255, 255, 255, 0.62);
     --card-hi: rgba(255, 255, 255, 0.9);
     --stroke: rgba(0, 0, 0, 0.06);
@@ -218,7 +221,8 @@ html[data-lang='de'] .lang-thumb {
 
 /* ---------- Page ---------- */
 .page {
-  width: min(100% - 32px, 1040px);
+  --side: max(16px, env(safe-area-inset-left), env(safe-area-inset-right));
+  width: min(100% - 2 * var(--side), 1040px);
   margin: 0 auto;
   padding: max(88px, calc(env(safe-area-inset-top) + 72px)) 0 max(32px, env(safe-area-inset-bottom));
 }
@@ -299,12 +303,16 @@ html[data-lang='de'] .lang-thumb {
 }
 
 .name {
-  margin: 0;
+  /* background-clip:text only paints inside the box: the padding keeps the descender of the "g"
+     painted, the negative margin cancels it out in the layout. */
+  margin: 0 0 -0.12em;
+  padding-bottom: 0.12em;
   font-size: clamp(40px, 8vw, 80px);
   line-height: 1.05;
   font-weight: 700;
   letter-spacing: -0.035em;
-  background: linear-gradient(180deg, var(--fg) 30%, color-mix(in srgb, var(--fg) 55%, transparent));
+  /* Stops measured without the padding, so the fade over the letters stays the same. */
+  background: linear-gradient(180deg, var(--fg) calc((100% - 0.12em) * 0.3), var(--fg-fade) calc(100% - 0.12em));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -354,7 +362,7 @@ html[data-lang='de'] .lang-thumb {
       'mail mail';
   }
   .tile-atlas { min-height: 440px; }
-  .tile-padel { min-height: 380px; }
+  .tile-padel { min-height: 410px; }
 }
 
 @media (max-width: 520px) {
@@ -420,16 +428,19 @@ html[data-lang='de'] .lang-thumb {
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
-.tile:hover::before,
-.tile:hover::after,
 .tile:focus-visible::before,
 .tile:focus-visible::after {
   opacity: 1;
 }
 
+/* Touch browsers keep :hover after a tap, so the hover look needs a real hover pointer. */
 @media (hover: hover) {
   .tile:hover {
     border-color: var(--stroke-hi);
+  }
+  .tile:hover::before,
+  .tile:hover::after {
+    opacity: 1;
   }
 }
 
@@ -559,10 +570,16 @@ a.tile:active {
   stroke-linejoin: round;
 }
 
-.tile:hover .tile-arrow,
 .tile:focus-visible .tile-arrow {
   transform: rotate(45deg);
   background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+@media (hover: hover) {
+  .tile:hover .tile-arrow {
+    transform: rotate(45deg);
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
+  }
 }
 
 .brand {
@@ -578,6 +595,7 @@ a.tile:active {
 
 .tile-small .tile-title {
   font-size: 22px;
+  white-space: nowrap;
 }
 
 .brand-inline {
@@ -637,6 +655,7 @@ a.tile:active {
   position: relative;
   z-index: 1;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -669,7 +688,7 @@ a.tile:active {
 
 @media (hover: hover) {
   .pill:hover { background: var(--card-hi); }
-  .pill-primary:hover { background: color-mix(in srgb, var(--fg) 85%, transparent); }
+  .pill-primary:hover { background: var(--fg-hover); }
 }
 
 .copy-idle,
@@ -686,6 +705,12 @@ a.tile:active {
   color: var(--green);
 }
 
+/* Light theme: small accent-coloured text needs a darker shade for 4.5:1 over glow and court. */
+@media (prefers-color-scheme: light) {
+  .eyebrow { color: color-mix(in srgb, var(--accent) 75%, #000); }
+  .copy-done { color: color-mix(in srgb, var(--green) 75%, #000); }
+}
+
 .pill.is-copied .copy-idle {
   opacity: 0;
   transform: translateY(-8px);
@@ -696,12 +721,25 @@ a.tile:active {
   transform: none;
 }
 
+/* Visually hidden, still read by screen readers (copy status). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* ---------- Padel scoreboard ---------- */
 .court {
   position: absolute;
   z-index: -1;
   left: 50%;
-  top: 54%;
+  top: 51.5%; /* centre line between scoreboard and eyebrow in all three bento layouts */
   width: 118%;
   fill: none;
   stroke: color-mix(in srgb, var(--green) 55%, transparent);
@@ -733,7 +771,7 @@ a.tile:active {
   position: relative;
   z-index: 1;
   align-self: stretch;
-  margin: 18px 0 auto;
+  margin: 40px 0 auto; /* clears the .tile-arrow (top 18px + 36px) */
   padding: 6px;
   border-radius: 20px;
   background: color-mix(in srgb, var(--bg) 55%, transparent);
@@ -834,7 +872,7 @@ a.tile:active {
   gap: 16px;
   margin-top: 48px;
   font-size: 13px;
-  color: var(--fg-3);
+  color: var(--fg-2);
 }
 
 /* ---------- Entrance ---------- */
@@ -870,5 +908,8 @@ a.tile:active {
   }
   .tile {
     transform: none;
+  }
+  .aurora {
+    translate: none;
   }
 }

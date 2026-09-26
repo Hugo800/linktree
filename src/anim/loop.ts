@@ -51,7 +51,7 @@ const sizes = new ResizeObserver((entries) => {
     const anim = all.find((a) => a.el === entry.target);
     if (!anim) continue;
     anim.resize();
-    if (reducedMotion.matches) anim.frame(performance.now() / 1000, 0);
+    anim.frame(performance.now() / 1000, 0); // resize() wiped the canvas; repaint before this frame is shown
   }
 });
 
@@ -82,3 +82,7 @@ export function fitCanvas(canvas: HTMLCanvasElement) {
 }
 
 export const lightScheme = matchMedia('(prefers-color-scheme: light)');
+// Running animations pick up the new colours on their next frame; still frames need a repaint.
+lightScheme.addEventListener('change', () => {
+  if (reducedMotion.matches) for (const anim of all) anim.frame(performance.now() / 1000, 0);
+});

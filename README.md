@@ -19,9 +19,11 @@ npm run preview  # built site with the production Content-Security-Policy
 - Everything lives in `index.html`. Text in both languages sits side by side as
   `<span data-l="en">…</span><span data-l="de">…</span>`; CSS hides the other language.
 - Photo: put a square `public/avatar.jpg` (at least 336 × 336 px). Without it the "HB" monogram shows.
-- `public/og.png` (1200 × 630) is the link preview image. Regenerate it after visible changes, e.g.
-  with headless Chrome against `npm run dev`:
-  `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-dark-mode --force-prefers-reduced-motion --window-size=1200,630 --virtual-time-budget=6000 --screenshot=public/og.png "http://localhost:5173/?lang=en"`
+- `public/og.jpg` (1200 × 630, JPEG so link previews stay well under the size limits of messengers) is
+  the link preview image. Regenerate it after visible changes, e.g. with headless Chrome against
+  `npm run dev` (a shorter time budget can catch the entrance animation half done):
+  `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-dark-mode --force-prefers-reduced-motion --window-size=1200,630 --virtual-time-budget=10000 --screenshot=/tmp/og.png "http://localhost:5173/?lang=en"`
+  then `sips -s format jpeg -s formatOptions 82 /tmp/og.png --out public/og.jpg`.
 
 ## Deployment
 

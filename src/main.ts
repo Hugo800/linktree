@@ -14,16 +14,24 @@ navigator.serviceWorker?.getRegistrations().then((regs) => regs.forEach((r) => r
 /* ---------- Language ---------- */
 const root = document.documentElement;
 const langButtons = document.querySelectorAll<HTMLButtonElement>('[data-set-lang]');
+const langSwitch = document.querySelector<HTMLElement>('.lang-switch');
 
 function setLang(lang: string, save: boolean) {
   root.dataset.lang = lang;
   root.lang = lang;
   langButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+  langSwitch?.setAttribute('aria-label', lang === 'de' ? 'Sprache' : 'Language');
   if (save) {
     try {
       localStorage.setItem('lang', lang);
     } catch {
       /* private mode: the choice just is not remembered */
+    }
+    // A ?lang= in the address wins over the saved choice in boot.js, so keep it in step.
+    const url = new URL(location.href);
+    if (url.searchParams.has('lang')) {
+      url.searchParams.set('lang', lang);
+      history.replaceState(history.state, '', url);
     }
   }
 }
@@ -34,15 +42,20 @@ langButtons.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.s
 /* ---------- Avatar ---------- */
 const avatar = document.querySelector<HTMLImageElement>('.avatar-img')!;
 const showAvatar = () => avatar.classList.add('is-loaded');
-if (avatar.complete && avatar.naturalWidth) showAvatar();
-else {
-  avatar.addEventListener('load', showAvatar);
-  avatar.addEventListener('error', () => avatar.remove()); // monogram stays visible
+if (avatar.complete) {
+  if (avatar.naturalWidth) showAvatar();
+  else avatar.remove(); // failed before this module ran; the monogram stays visible
+} else {
+  avatar.addEventListener('load', showAvatar, { once: true });
+  avatar.addEventListener('error', () => avatar.remove(), { once: true }); // monogram stays visible
 }
 
 /* ---------- Copy e-mail ---------- */
 document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
   let timer = 0;
+  // The visible "Copied" is aria-hidden; screen readers hear it through the status region.
+  const status = btn.parentElement?.querySelector<HTMLElement>('[role="status"]');
+  const done = btn.querySelector<HTMLElement>('.copy-done');
   btn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(btn.dataset.copy!);
@@ -51,8 +64,12 @@ document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
       return;
     }
     btn.classList.add('is-copied');
+    if (status && done) status.textContent = done.innerText; // current language only
     clearTimeout(timer);
-    timer = window.setTimeout(() => btn.classList.remove('is-copied'), 1800);
+    timer = window.setTimeout(() => {
+      btn.classList.remove('is-copied');
+      if (status) status.textContent = '';
+    }, 1800);
   });
 });
 

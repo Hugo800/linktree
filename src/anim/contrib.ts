@@ -13,6 +13,13 @@ export function contrib(canvas: HTMLCanvasElement): Animation {
   let target: Float32Array = new Float32Array(0);
   let nextPulse = 0;
 
+  const cell = (x: number, y: number) => {
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, CELL, CELL, 3);
+    else ctx.rect(x, y, CELL, CELL); // Safari 15, Firefox < 112
+    ctx.fill();
+  };
+
   const seed = () => {
     const r = Math.random();
     return r < 0.45 ? 0 : r < 0.7 ? 0.3 : r < 0.88 ? 0.6 : 1;
@@ -63,18 +70,14 @@ export function contrib(canvas: HTMLCanvasElement): Animation {
           const x = x0 + c * (CELL + GAP);
           const y = y0 + r * (CELL + GAP);
           ctx.fillStyle = `rgba(${off[0]},${off[1]},${off[2]},${off[3]})`;
-          ctx.beginPath();
-          ctx.roundRect(x, y, CELL, CELL, 3);
-          ctx.fill();
+          cell(x, y);
           if (v > 0.04) {
             ctx.fillStyle = `rgba(${on[0]},${on[1]},${on[2]},${Math.min(1, v * 0.95)})`;
             if (v > 0.8 && !light) {
               ctx.shadowColor = `rgba(${on[0]},${on[1]},${on[2]},0.8)`;
               ctx.shadowBlur = 8;
             }
-            ctx.beginPath();
-            ctx.roundRect(x, y, CELL, CELL, 3);
-            ctx.fill();
+            cell(x, y);
             ctx.shadowBlur = 0;
           }
         }

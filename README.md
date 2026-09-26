@@ -25,9 +25,23 @@ npm run preview  # built site with the production Content-Security-Policy
 
 ## Deployment
 
+Live on https://hugobarthelmess.de since 26 September 2026.
+
 `deploy/` holds Dockerfile, nginx config (with CSP and security headers) and a compose file that
 joins the `web-stack_default` network on the OTC server, like the other projects. The web-stack
-nginx terminates TLS for `hugobarthelmess.de` and proxies to the `linktree` container.
+nginx terminates TLS for `hugobarthelmess.de` (template `hugobarthelmess.conf.template`) and
+proxies to the `linktree` container. On the server: `~/linktree/src` (copied tree),
+`~/linktree/.deployed` (live commit).
+
+Update the live site from the Mac after committing:
+
+```bash
+deploy/push-to-server.sh
+```
+
+The CI deploy job stays skipped until the repository variable `DEPLOY_ENABLED` is `true`; it needs
+a server-side `~/linktree/deploy.sh`, a restricted key in `authorized_keys` and the secrets
+`DEPLOY_SSH_KEY` / `DEPLOY_KNOWN_HOSTS` (same scheme as Satellite-Tracker).
 
 Until September 2026 the apex domain served Padel Score (now `counter.hugobarthelmess.de`).
 `public/sw.js` replaces its old service worker so returning visitors are not stuck on a cached copy,

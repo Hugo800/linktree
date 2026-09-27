@@ -7,6 +7,16 @@ light mode via `prefers-color-scheme`, English and German (browser language, swi
 No framework: Vite + TypeScript, one shared `requestAnimationFrame` loop for the tile animations
 (`src/anim/`), which pauses offscreen, in background tabs and with reduced motion.
 
+The page is split into two full-screen pages (name + both projects, then live tiles + contact)
+with CSS scroll snapping and a dot pager (`src/pager.ts`): wheel, arrow keys and dots turn one page
+with a slow ease, touch scrolling stays native, and until the visitor steers, the pages advance every
+5 s and stop on the last one. Windows lower than 640 px keep the plain bento grid.
+
+Live tiles (`src/live.ts`): ISS position and the next pass over Leipzig (TLE from the Orbital Atlas
+mirror, SGP4 via `satellite.js`, loaded lazily) and running Padel Score matches (`/healthz`). nginx
+forwards `/live/padel` and `/live/iss.tle` to the neighbouring containers, `npm run dev`/`preview`
+proxy them to the public sites. A service that does not answer turns its "live" dots grey.
+
 ```bash
 npm install
 npm run dev      # http://localhost:5173

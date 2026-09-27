@@ -34,70 +34,79 @@
       <button type="button" data-set-lang="de" aria-pressed="false">DE</button>
     </div>
 
+    <nav class="pager" aria-label="Sections">
+      <button type="button" data-page="0"><span class="sr-only"><span data-l="en">Projects</span><span data-l="de">Projekte</span></span></button>
+      <button type="button" data-page="1"><span class="sr-only"><span data-l="en">Live and contact</span><span data-l="de">Live und Kontakt</span></span></button>
+    </nav>
+
     <main class="page">
-      <header class="hero reveal">
-        <div class="avatar">
-          <span class="avatar-ring" aria-hidden="true"></span>
-          <span class="avatar-fallback" aria-hidden="true">HB</span>
-          <img class="avatar-img" src="/avatar.jpg" width="112" height="112" alt="" decoding="async" />
-        </div>
-        <h1 class="name">Hugo Barthelmeß</h1>
-        <p class="place">
-          <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
-          <span data-l="en">Leipzig, Germany</span><span data-l="de">Leipzig, Deutschland</span>
-        </p>
-      </header>
-
-      <section class="bento" aria-label="Links">
-        <a class="tile tile-atlas reveal" href="https://tracker.hugobarthelmess.de" data-accent="blue">
-          <canvas class="tile-canvas" data-anim="globe" aria-hidden="true"></canvas>
-          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-          <div class="tile-body">
-            <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-l="en">Project · Live</span><span data-l="de">Projekt · Live</span></span>
-            <h2 class="tile-title">Orbital Atlas</h2>
-            <p class="tile-text">
-              <span data-l="en">Real-time 3D satellite tracker and star atlas. Right in the browser.</span>
-              <span data-l="de">Satelliten in Echtzeit und Sternenatlas in 3D. Direkt im Browser.</span>
-            </p>
-            <span class="chip">tracker.hugobarthelmess.de</span>
+      <div class="intro">
+        <header class="hero reveal">
+          <div class="avatar">
+            <span class="avatar-ring" aria-hidden="true"></span>
+            <span class="avatar-fallback" aria-hidden="true">HB</span>
+            <img class="avatar-img" src="/avatar.jpg" width="112" height="112" alt="" decoding="async" />
           </div>
-        </a>
+          <h1 class="name">Hugo Barthelmeß</h1>
+          <p class="place">
+            <svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a7 7 0 0 0-7 7c0 5 7 12 7 12s7-7 7-12a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z"/></svg>
+            <span data-l="en">Leipzig, Germany</span><span data-l="de">Leipzig, Deutschland</span>
+          </p>
+        </header>
 
-        <a class="tile tile-padel reveal" href="https://counter.hugobarthelmess.de" data-accent="green">
-          <svg class="court" viewBox="0 0 200 100" aria-hidden="true">
-            <rect x="1" y="1" width="198" height="98" rx="1" />
-            <line x1="30.5" y1="1" x2="30.5" y2="99" />
-            <line x1="169.5" y1="1" x2="169.5" y2="99" />
-            <line x1="30.5" y1="50" x2="169.5" y2="50" />
-            <line x1="100" y1="-4" x2="100" y2="104" class="net" />
-            <circle class="ball" cx="40" cy="70" r="2.2" />
-          </svg>
-          <div class="scoreboard" aria-hidden="true">
-            <div class="sb-row" data-team="0">
-              <span class="sb-serve"></span>
-              <span class="sb-team">Team A</span>
-              <span class="sb-sets"><b>6</b><b class="sb-games">0</b></span>
-              <span class="sb-points"><span class="roll">0</span></span>
+        <section class="bento projects" aria-label="Projects">
+          <a class="tile tile-atlas reveal" href="https://tracker.hugobarthelmess.de" data-accent="blue" data-service="atlas">
+            <canvas class="tile-canvas" data-anim="globe" aria-hidden="true"></canvas>
+            <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="tile-body">
+              <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-l="en">Project · Live</span><span data-l="de">Projekt · Live</span></span>
+              <h2 class="tile-title">Orbital Atlas</h2>
+              <p class="tile-text">
+                <span data-l="en">Real-time 3D satellite tracker and star atlas. Right in the browser.</span>
+                <span data-l="de">Satelliten in Echtzeit und Sternenatlas in 3D. Direkt im Browser.</span>
+              </p>
+              <span class="chip">tracker.hugobarthelmess.de</span>
             </div>
-            <div class="sb-row" data-team="1">
-              <span class="sb-serve"></span>
-              <span class="sb-team">Team B</span>
-              <span class="sb-sets"><b>4</b><b class="sb-games">0</b></span>
-              <span class="sb-points"><span class="roll">0</span></span>
-            </div>
-          </div>
-          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-          <div class="tile-body">
-            <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-l="en">Project · Live</span><span data-l="de">Projekt · Live</span></span>
-            <h2 class="tile-title">Padel Score</h2>
-            <p class="tile-text">
-              <span data-l="en">Keep score in tennis and padel, synced live across devices.</span>
-              <span data-l="de">Punkte zählen beim Tennis und Padel, live auf allen Geräten.</span>
-            </p>
-            <span class="chip">counter.hugobarthelmess.de</span>
-          </div>
-        </a>
+          </a>
 
+          <a class="tile tile-padel reveal" href="https://counter.hugobarthelmess.de" data-accent="green" data-service="padel">
+            <svg class="court" viewBox="0 0 200 100" aria-hidden="true">
+              <rect x="1" y="1" width="198" height="98" rx="1" />
+              <line x1="30.5" y1="1" x2="30.5" y2="99" />
+              <line x1="169.5" y1="1" x2="169.5" y2="99" />
+              <line x1="30.5" y1="50" x2="169.5" y2="50" />
+              <line x1="100" y1="-4" x2="100" y2="104" class="net" />
+              <circle class="ball" cx="40" cy="70" r="2.2" />
+            </svg>
+            <div class="scoreboard" aria-hidden="true">
+              <div class="sb-row" data-team="0">
+                <span class="sb-serve"></span>
+                <span class="sb-team">Team A</span>
+                <span class="sb-sets"><b>6</b><b class="sb-games">0</b></span>
+                <span class="sb-points"><span class="roll">0</span></span>
+              </div>
+              <div class="sb-row" data-team="1">
+                <span class="sb-serve"></span>
+                <span class="sb-team">Team B</span>
+                <span class="sb-sets"><b>4</b><b class="sb-games">0</b></span>
+                <span class="sb-points"><span class="roll">0</span></span>
+              </div>
+            </div>
+            <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+            <div class="tile-body">
+              <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span><span data-l="en">Project · Live</span><span data-l="de">Projekt · Live</span></span>
+              <h2 class="tile-title">Padel Score</h2>
+              <p class="tile-text">
+                <span data-l="en">Keep score in tennis and padel, synced live across devices.</span>
+                <span data-l="de">Punkte zählen beim Tennis und Padel, live auf allen Geräten.</span>
+              </p>
+              <span class="chip">counter.hugobarthelmess.de</span>
+            </div>
+          </a>
+        </section>
+      </div>
+
+      <section class="bento links" aria-label="Links">
         <a class="tile tile-small tile-github reveal" href="https://github.com/Hugo800" data-accent="violet">
           <canvas class="tile-canvas" data-anim="contrib" aria-hidden="true"></canvas>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
@@ -113,6 +122,26 @@
             <svg class="brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
             <h2 class="tile-title">LinkedIn</h2>
             <p class="tile-text"><span data-l="en">Let’s connect</span><span data-l="de">Vernetzen</span></p>
+          </div>
+        </a>
+
+        <a class="tile tile-small tile-iss reveal" href="https://tracker.hugobarthelmess.de" data-accent="blue" data-service="atlas">
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="tile-body">
+            <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>ISS · Live</span>
+            <p class="stat" data-iss="alt">–</p>
+            <p class="tile-text live-line"><span data-iss="where"></span><span class="live-extra" data-iss="speed"></span></p>
+            <p class="tile-text live-line"><span data-iss="pass"></span><span class="live-extra" data-iss="passx"></span></p>
+          </div>
+        </a>
+
+        <a class="tile tile-small tile-plive reveal" href="https://counter.hugobarthelmess.de" data-accent="green" data-service="padel">
+          <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          <div class="tile-body">
+            <span class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Padel · Live</span>
+            <p class="stat"><span data-padel="games">–</span></p>
+            <p class="tile-text live-line" data-padel="label"></p>
+            <p class="tile-text live-line" data-padel="devices"></p>
           </div>
         </a>
 

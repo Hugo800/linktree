@@ -3,6 +3,8 @@ import { register } from './anim/loop';
 import { globe } from './anim/globe';
 import { contrib } from './anim/contrib';
 import { score } from './anim/score';
+import { pager } from './pager';
+import { live } from './live';
 
 // Until September 2026 this domain served Padel Score. Its admin link now lives on the subdomain.
 if (location.hash === '#admin') location.replace('https://counter.hugobarthelmess.de/#admin');
@@ -15,12 +17,14 @@ navigator.serviceWorker?.getRegistrations().then((regs) => regs.forEach((r) => r
 const root = document.documentElement;
 const langButtons = document.querySelectorAll<HTMLButtonElement>('[data-set-lang]');
 const langSwitch = document.querySelector<HTMLElement>('.lang-switch');
+const pagerNav = document.querySelector<HTMLElement>('.pager');
 
 function setLang(lang: string, save: boolean) {
   root.dataset.lang = lang;
   root.lang = lang;
   langButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
   langSwitch?.setAttribute('aria-label', lang === 'de' ? 'Sprache' : 'Language');
+  pagerNav?.setAttribute('aria-label', lang === 'de' ? 'Abschnitte' : 'Sections');
   if (save) {
     try {
       localStorage.setItem('lang', lang);
@@ -123,3 +127,7 @@ const board = document.querySelector<HTMLElement>('.scoreboard');
 if (board) register(score(board));
 
 document.querySelectorAll('.year').forEach((el) => (el.textContent = String(new Date().getFullYear())));
+
+/* ---------- Pages and live data ---------- */
+pager(root);
+live();

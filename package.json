@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "stats": "STATS_DATA=stats/.data GEO_DOWNLOAD=0 ALLOW_HEADLESS=1 ADMIN_PASSWORD=${ADMIN_PASSWORD:-dev} PORT=8787 node --disable-warning=ExperimentalWarning stats/server.mjs",
     "typecheck": "tsc",
+    "test:stats": "node --test stats/test/*.test.mjs",
     "test": "tsc"
   },
   "devDependencies": {

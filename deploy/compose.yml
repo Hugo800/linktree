@@ -10,6 +10,26 @@ services:
     container_name: linktree
     restart: unless-stopped
     networks: [web]
+
+  # Statistics for /#admin (stats/server.mjs), reached only through the linktree nginx (/api/).
+  # ADMIN_PASSWORD comes from ~/linktree/stats.env on the server (chmod 600, not in the repo);
+  # without it the page is still counted but the dashboard stays locked.
+  stats:
+    build:
+      context: ..
+      dockerfile: stats/Dockerfile
+      pull: true
+    container_name: linktree-stats
+    restart: unless-stopped
+    env_file:
+      - path: ../../stats.env
+        required: false
+    volumes:
+      - stats-data:/data
+    networks: [web]
+
+volumes:
+  stats-data:
 networks:
   web:
     external: true

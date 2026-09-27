@@ -33,6 +33,12 @@ jobs:
       - name: Typecheck and build
         run: npm run build
 
+      - name: Statistics service
+        run: |
+          node --check stats/server.mjs
+          node --check stats/geo.mjs
+          npm run test:stats
+
   deploy:
     needs: test
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'

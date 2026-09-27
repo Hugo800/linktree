@@ -30,8 +30,8 @@
 
     <div class="lang-switch" role="group" aria-label="Language">
       <span class="lang-thumb" aria-hidden="true"></span>
-      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-set-lang="de" aria-pressed="false">DE</button>
+      <button type="button" data-set-lang="en" aria-pressed="true" data-track="lang-en">EN</button>
+      <button type="button" data-set-lang="de" aria-pressed="false" data-track="lang-de">DE</button>
     </div>
 
     <main class="page">
@@ -49,7 +49,7 @@
       </header>
 
       <section class="bento" aria-label="Links">
-        <a class="tile tile-atlas reveal" href="https://tracker.hugobarthelmess.de" data-accent="blue">
+        <a class="tile tile-atlas reveal" href="https://tracker.hugobarthelmess.de" data-accent="blue" data-track="atlas">
           <canvas class="tile-canvas" data-anim="globe" aria-hidden="true"></canvas>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
           <div class="tile-body">
@@ -63,7 +63,7 @@
           </div>
         </a>
 
-        <a class="tile tile-padel reveal" href="https://counter.hugobarthelmess.de" data-accent="green">
+        <a class="tile tile-padel reveal" href="https://counter.hugobarthelmess.de" data-accent="green" data-track="padel">
           <svg class="court" viewBox="0 0 200 100" aria-hidden="true">
             <rect x="1" y="1" width="198" height="98" rx="1" />
             <line x1="30.5" y1="1" x2="30.5" y2="99" />
@@ -98,7 +98,7 @@
           </div>
         </a>
 
-        <a class="tile tile-small tile-github reveal" href="https://github.com/Hugo800" data-accent="violet">
+        <a class="tile tile-small tile-github reveal" href="https://github.com/Hugo800" data-accent="violet" data-track="github">
           <canvas class="tile-canvas" data-anim="contrib" aria-hidden="true"></canvas>
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
           <div class="tile-body">
@@ -107,7 +107,7 @@
           </div>
         </a>
 
-        <a class="tile tile-small tile-linkedin reveal" href="https://www.linkedin.com/in/hugo-oliver-b-327987191/" data-accent="sky">
+        <a class="tile tile-small tile-linkedin reveal" href="https://www.linkedin.com/in/hugo-oliver-b-327987191/" data-accent="sky" data-track="linkedin">
           <span class="tile-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
           <div class="tile-body">
             <svg class="brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
@@ -123,10 +123,10 @@
             <p class="tile-text mail-address">kontakt@hugobarthelmess.de</p>
           </div>
           <div class="mail-actions">
-            <a class="pill pill-primary" href="mailto:kontakt@hugobarthelmess.de">
+            <a class="pill pill-primary" href="mailto:kontakt@hugobarthelmess.de" data-track="mail">
               <span data-l="en">Write</span><span data-l="de">Schreiben</span>
             </a>
-            <button class="pill" type="button" data-copy="kontakt@hugobarthelmess.de">
+            <button class="pill" type="button" data-copy="kontakt@hugobarthelmess.de" data-track="copy">
               <span class="copy-idle"><span data-l="en">Copy</span><span data-l="de">Kopieren</span></span>
               <span class="copy-done" aria-hidden="true"><span data-l="en">Copied</span><span data-l="de">Kopiert</span></span>
             </button>

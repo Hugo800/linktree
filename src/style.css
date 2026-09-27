@@ -549,8 +549,9 @@ a.tile:active {
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--fg-2);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  /* No backdrop-filter here, on .tile-arrow or .scoreboard: nested in the tile's own blur over the
+     moving aurora, those three doubled the GPU load and made scrolling stutter in Chrome on macOS,
+     while the blur was barely visible. */
 }
 
 .tile-arrow {
@@ -565,8 +566,6 @@ a.tile:active {
   border-radius: 50%;
   background: var(--chip);
   border: 1px solid var(--stroke);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
   transition:
     transform 0.5s var(--ease),
     background 0.3s var(--ease);
@@ -788,8 +787,6 @@ a.tile:active {
   border-radius: 20px;
   background: color-mix(in srgb, var(--bg) 55%, transparent);
   border: 1px solid var(--stroke);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
   font-feature-settings: 'tnum';
   max-width: 420px;
 }

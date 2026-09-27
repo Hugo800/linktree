@@ -3,9 +3,16 @@ import { register } from './anim/loop';
 import { globe } from './anim/globe';
 import { contrib } from './anim/contrib';
 import { score } from './anim/score';
+import { track } from './track';
 
-// Until September 2026 this domain served Padel Score. Its admin link now lives on the subdomain.
-if (location.hash === '#admin') location.replace('https://counter.hugobarthelmess.de/#admin');
+// /#admin shows the statistics dashboard (loaded on demand) instead of the page, and is not counted.
+// The Padel Score admin lives at counter.hugobarthelmess.de/#admin.
+const isAdmin = location.hash === '#admin';
+if (isAdmin) {
+  document.documentElement.classList.add('admin-mode');
+  import('./admin').then((m) => m.admin());
+} else track();
+addEventListener('hashchange', () => (location.hash === '#admin') !== isAdmin && location.reload());
 
 // Drop the old Padel Score service worker if it is still around (public/sw.js does the same
 // for visitors whose browser checks for an update first).

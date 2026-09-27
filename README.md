@@ -25,6 +25,19 @@ npm run preview  # built site with the production Content-Security-Policy
   `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --force-dark-mode --force-prefers-reduced-motion --window-size=1200,630 --virtual-time-budget=10000 --screenshot=/tmp/og.png "http://localhost:5173/?lang=en"`
   then `sips -s format jpeg -s formatOptions 82 /tmp/og.png --out public/og.jpg`.
 
+## Statistics (/#admin)
+
+`stats/` is a small Node service without dependencies (SQLite via `node:sqlite`, own reader for the
+DB-IP "IP to City Lite" database, fetched monthly into its volume). The page sends a view, a
+heartbeat every 30 s and clicks on `[data-track]` elements to `/api/e` (`src/track.ts`), no cookies,
+nothing stored in the browser, off with Do Not Track/GPC. The IP is only used in memory for the city
+lookup and a visitor hash with a daily salt; single events are kept 90 days, then daily totals.
+`/#admin` loads the dashboard (`src/admin.ts`) after logging in with `ADMIN_PASSWORD`; the logged-in
+device is no longer counted.
+
+Locally: `npm run stats` (password `dev`, data in `stats/.data`) next to `npm run dev`.
+On the server the password lives in `~/linktree/stats.env` (`ADMIN_PASSWORD=…`, chmod 600).
+
 ## Deployment
 
 Live on https://hugobarthelmess.de since 26 September 2026.

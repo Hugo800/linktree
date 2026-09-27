@@ -1,0 +1,372 @@
+/* /#admin dashboard. Uses the tokens of style.css. */
+html.admin-mode .page,
+html.admin-mode .lang-switch {
+  display: none;
+}
+
+.admin {
+  width: min(100% - 32px, 1120px);
+  margin: 0 auto;
+  padding: max(32px, env(safe-area-inset-top)) 0 max(40px, env(safe-area-inset-bottom));
+}
+
+.admin-card {
+  padding: 20px;
+  border: 1px solid var(--stroke);
+  border-radius: 22px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+}
+
+.admin-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.admin-sub {
+  margin: 2px 0 0;
+  color: var(--fg-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.admin-muted {
+  color: var(--fg-2);
+  font-size: 13px;
+}
+
+.admin-empty {
+  margin: 8px 0 0;
+  color: var(--fg-2);
+  font-size: 14px;
+}
+
+/* ---------- Login ---------- */
+.admin-login {
+  display: grid;
+  gap: 12px;
+  width: min(100%, 360px);
+  margin: 18vh auto 0;
+  padding: 28px;
+}
+
+.admin-input {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--stroke-hi);
+  border-radius: 12px;
+  background: var(--chip);
+  color: var(--fg);
+  font: inherit;
+  font-size: 16px;
+}
+
+.admin-input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.admin-error {
+  min-height: 1.4em;
+  margin: 0;
+  color: var(--pink);
+  font-size: 14px;
+}
+
+/* ---------- Header ---------- */
+.admin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.admin-head > div:first-child {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-seg {
+  display: flex;
+  padding: 3px;
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  background: var(--card);
+}
+
+.admin-seg button {
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--fg-2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-seg button[aria-pressed='true'] {
+  background: var(--card-hi);
+  color: var(--fg);
+}
+
+.admin-seg button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+}
+
+/* ---------- Numbers ---------- */
+.admin-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.admin-kpi {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-kpi-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--fg-2);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin-kpi-value {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-feature-settings: 'tnum';
+}
+
+.admin-kpi-hint {
+  color: var(--fg-2);
+  font-size: 12px;
+}
+
+/* ---------- Cards ---------- */
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-box.is-wide {
+  grid-column: 1 / -1;
+}
+
+.admin-box.is-tall {
+  grid-row: span 2;
+}
+
+.admin-box-title {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.admin-bars {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-bars li {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(40px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.admin-bar-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.admin-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--chip);
+}
+
+.admin-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--blue);
+}
+
+.admin-bar-value {
+  min-width: 2ch;
+  color: var(--fg-2);
+  text-align: right;
+  font-feature-settings: 'tnum';
+}
+
+.admin-more {
+  color: var(--fg-2);
+  font-size: 13px;
+}
+
+/* Timeline */
+.admin-chart {
+  display: block;
+  width: 100%;
+  height: 160px;
+}
+
+.admin-col-views {
+  fill: color-mix(in srgb, var(--blue) 45%, transparent);
+}
+
+.admin-col-visitors {
+  fill: var(--blue);
+}
+
+.admin-axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: var(--fg-2);
+  font-size: 12px;
+  font-feature-settings: 'tnum';
+}
+
+.admin-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  color: var(--fg-2);
+  font-size: 12px;
+}
+
+.admin-legend span::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 3px;
+  vertical-align: -1px;
+}
+
+.admin-legend .is-views::before {
+  background: color-mix(in srgb, var(--blue) 45%, transparent);
+}
+
+.admin-legend .is-visitors::before {
+  background: var(--blue);
+}
+
+/* Hours */
+.admin-hours {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  align-items: end;
+  gap: 3px;
+  height: 120px;
+}
+
+.admin-hour {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+  border-radius: 4px;
+  background: var(--chip);
+}
+
+.admin-hour span {
+  width: 100%;
+  min-height: 2px;
+  border-radius: 4px;
+  background: var(--violet);
+}
+
+/* Live */
+.admin-live-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.admin-live,
+.admin-recent {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.admin-live li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.admin-live li .admin-muted {
+  grid-column: 2;
+}
+
+.admin-recent li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-foot {
+  margin-top: 24px;
+  color: var(--fg-2);
+  font-size: 12px;
+  text-align: center;
+}
+
+.admin-foot a {
+  text-decoration: underline;
+}
+
+@media (max-width: 860px) {
+  .admin-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .admin-kpis {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-grid,
+  .admin-live-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-box.is-tall {
+    grid-row: auto;
+  }
+  .admin-seg {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .admin-seg button {
+    flex: 1;
+    padding: 0 8px;
+  }
+}

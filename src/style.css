@@ -9,6 +9,9 @@
   --fg-fade: rgba(245, 245, 247, 0.55);
   --fg-hover: rgba(245, 245, 247, 0.85);
   --card: rgba(28, 28, 30, 0.55);
+  /* Tiles have no backdrop blur (see .tile), so they let a bit more of the aurora through to keep
+     its colour instead of turning grey. */
+  --tile: rgba(28, 28, 34, 0.4);
   --card-hi: rgba(255, 255, 255, 0.07);
   --stroke: rgba(255, 255, 255, 0.09);
   --stroke-hi: rgba(255, 255, 255, 0.22);
@@ -36,6 +39,7 @@
     --fg-fade: rgba(29, 29, 31, 0.55);
     --fg-hover: rgba(29, 29, 31, 0.85);
     --card: rgba(255, 255, 255, 0.62);
+    --tile: rgba(255, 255, 255, 0.62);
     --card-hi: rgba(255, 255, 255, 0.9);
     --stroke: rgba(0, 0, 0, 0.06);
     --stroke-hi: rgba(0, 0, 0, 0.14);
@@ -158,7 +162,8 @@ html[data-lang='de'] [data-l='en'] {
   inset: -50%;
   opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+  /* No mix-blend-mode: the backdrop is its own stacking context over a mostly transparent aurora, so
+     "overlay" looked almost the same as plain blending, but re-blended the whole screen every frame. */
 }
 
 /* iOS Safari 26+ fills the area under its translucent status bar and toolbar with the page
@@ -259,7 +264,9 @@ html[data-lang='de'] .lang-thumb {
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  background: conic-gradient(from var(--ring-angle, 0deg), var(--blue), var(--violet), var(--pink), var(--blue));
+  background: conic-gradient(var(--blue), var(--violet), var(--pink), var(--blue));
+  /* Turning the element runs on the compositor; animating the gradient angle repainted the ring and
+     its blurred glow on the main thread every frame, and Chrome paused that while scrolling. */
   animation: ring-spin 8s linear infinite;
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
   mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px));
@@ -275,14 +282,8 @@ html[data-lang='de'] .lang-thumb {
   opacity: 0.6;
 }
 
-@property --ring-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
 @keyframes ring-spin {
-  to { --ring-angle: 360deg; }
+  to { rotate: 360deg; }
 }
 
 .avatar-fallback,
@@ -395,11 +396,12 @@ html[data-lang='de'] .lang-thumb {
   min-width: 0;
   padding: 26px;
   border-radius: var(--radius);
-  background: var(--card);
+  /* No backdrop-filter: behind the tiles only the soft aurora moves, so the blur was hardly
+     visible, but with the tile animations every frame re-blurred all tiles. In Chrome on macOS
+     that filled the GPU: about 30 frames per second and scrolling hitches of 250 ms. */
+  background: var(--tile);
   border: 1px solid var(--stroke);
   box-shadow: var(--shadow);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  backdrop-filter: blur(24px) saturate(180%);
   overflow: hidden;
   isolation: isolate;
   transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--s, 1));
@@ -549,9 +551,8 @@ a.tile:active {
   font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--fg-2);
-  /* No backdrop-filter here, on .tile-arrow or .scoreboard: nested in the tile's own blur over the
-     moving aurora, those three doubled the GPU load and made scrolling stutter in Chrome on macOS,
-     while the blur was barely visible. */
+  /* No backdrop-filter here, on .tile-arrow or .scoreboard either: over the moving aurora each one
+     costs GPU time on every frame (see .tile). */
 }
 
 .tile-arrow {

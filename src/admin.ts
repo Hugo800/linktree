@@ -41,7 +41,7 @@ const RANGES: [number, string][] = [
 ];
 const TARGETS: Record<string, string> = {
   atlas: 'Orbital Atlas',
-  padel: 'Padel Score',
+  padel: 'Tennis Score',
   github: 'GitHub',
   linkedin: 'LinkedIn',
   mail: 'E-Mail schreiben',

@@ -1,6 +1,6 @@
 import type { Animation } from './loop';
 
-/** A match that plays itself – the Padel Score tile. Rolls the point digits like a flip board. */
+/** A match that plays itself – the Tennis Score tile. Rolls the point digits like a flip board. */
 
 const POINTS = ['0', '15', '30', '40', 'AD'];
 const RALLY = 1.7; // seconds per point
